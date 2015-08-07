@@ -28,11 +28,11 @@
     for(i = value.length-1; i >= 0;i--){
       $("#msg_list").after(value.charAt(i));
 
-      if(i/10==1 || i/10==2 || i/10==3){
+      if(i%10==0){
       $("#msg_list").after('<br>');
     }
   }
-  $("#msg_list").after("<div class ='msg'>"); 
+
 
 
     //$("#msg_list").after("<div class='msg'>" + value + "</div>")
