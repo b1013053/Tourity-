@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>node.js chat</title>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+
+  //var s = io.connect('http://localhost:3000'); //local
+  var s = io.connect(); //remote
+
+  s.on("connection", function () {});  
+  s.on("server_message", function (data) {
+    addMessage(data.value);
+  });
+
+  function sendmessage() {
+    var msg = $("#message").val(); 
+    $("#message").val(""); 
+    s.emit("user_message", {value:msg});
+  }
+
+  function addMessage (value,color,size) {
+
+    var one = '';
+
+    for(i = value.length-1; i >= 0;i--){
+      $("#msg_list").after(value.charAt(i));
+
+      if(i/10==1 || i/10==2 || i/10==3){
+      $("#msg_list").after('<br>');
+    }
+  }
+  $("#msg_list").after("<div class ='msg'>"); 
+
+
+    //$("#msg_list").after("<div class='msg'>" + value + "</div>")
+
+  }   
+
+  </script>
+  <style>
+    *{
+      font-size:30px;
+      margin:0;
+      padding:0;
+    }
+  </style>
+</head>
+<body>
+  <div id="msg_list"></div>
+  <form action="" method="post" onsubmit="return false;">
+    <textarea id="message" cols="30" rows="3" maxlength="80" placeholder="今なにしてる？"></textarea>
+    <input type="submit" class="button" onclick="sendmessage();" value="送信" />
+  </form>
+</div>
+</body>
+</html>
